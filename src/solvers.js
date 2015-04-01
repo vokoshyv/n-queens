@@ -25,6 +25,36 @@ window.findNRooksSolution = function(n) {
   // return solution;
 
   var board = new Board({n: n})
+  var matrix = board.rows();
+  var outcomes = [];
+  var round = 0;
+
+  var recurse = function(){
+    //base case
+    //check if rounds === n?
+    //if so, push matrix to outcomes
+    //
+
+    //recursion
+    //
+    //define the row based on the round
+    //iterate through the row (element)
+      // change element = 1
+      // test matrix against helper functions for conflict
+      // if conflict
+        // reset previous element value
+        // continue
+      // if not a conflict
+        // increment the round
+        // recursively call 'recurse'
+    //iterate through matrix (with each?); collection is matrix; value is row
+    //
+    board
+  }
+
+  recurse(matrix);
+
+  return outcomes[0];
 };
 
 
