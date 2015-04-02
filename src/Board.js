@@ -51,6 +51,7 @@
     },
 
     hasAnyQueensConflicts: function() {
+      //time complexity: O(n^3);
       return this.hasAnyRooksConflicts() || this.hasAnyMajorDiagonalConflicts() || this.hasAnyMinorDiagonalConflicts();
     },
 

@@ -57,11 +57,15 @@ window.countNRooksSolutions = function(n) {
 window.findNQueensSolution = function(n) {
   var board = new Board({n: n})
   var round = 0;
-  var result = [];
+  var result;
+  window.queensCount = 0;
 
   var recurse = function(inputBoard){
     if (round === n){
-      result.push(inputBoard.duplicate());
+      if (result === undefined){
+        result = inputBoard.duplicate();
+      }
+      window.queensCount++;
       return;
     }
     for (var i = 0; i < n; i++){
@@ -75,13 +79,12 @@ window.findNQueensSolution = function(n) {
     }
   }
   recurse(board);
-  window.queenResults = result;
-  return result[0] || new Board({n : n}).rows();
+  return result || new Board({n : n}).rows();
 };
 
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
   this.findNQueensSolution(n);
-  return window.queenResults.length;
+  return window.queensCount;
 };
