@@ -25,38 +25,56 @@ window.findNRooksSolution = function(n) {
   // return solution;
 
   var board = new Board({n: n})
-  var matrix = board.rows();
   var outcomes = [];
   var round = 0;
 
-  var recurse = function(){
+  var recurse = function(inputBoard){
     //base case
     //check if rounds === n?
+    // console.log(inputBoard.rows(), round)
+    console.log(JSON.stringify(inputBoard.rows()), "round: ", round);
+    debugger;
+    if (round === n){
+      // console.log(inputBoard.rows());
+      if (!inputBoard.hasAnyRooksConflicts()){
+        outcomes.push(inputBoard);
+      }
+      // console.log("OUTCOMES: ", outcomes);
+      round--;
+      return;
+    }
     //if so, push matrix to outcomes
     //
+    for (var i = 0; i < n; i++){
+      inputBoard.togglePiece(round, i);
+      round++;
+      debugger;
+      recurse(inputBoard);
+      inputBoard.togglePiece(round, i);
+      // }
+    }
 
-    //recursion
-    //
+  }
+
+  recurse(board);
+  debugger;
+  return outcomes[0].rows();
+};
+
     //define the row based on the round
     //iterate through the row (element)
-      // change element = 1
+      // set element = 1
       // test matrix against helper functions for conflict
+
       // if conflict
-        // reset previous element value
+        // reset current element value to 0
         // continue
+
       // if not a conflict
         // increment the round
         // recursively call 'recurse'
     //iterate through matrix (with each?); collection is matrix; value is row
     //
-    board
-  }
-
-  recurse(matrix);
-
-  return outcomes[0];
-};
-
 
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
