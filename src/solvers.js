@@ -14,76 +14,43 @@
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 
 window.findNRooksSolution = function(n) {
-  // var board = new Board({n : n});
-  // var solution = board.rows();
-
-  // for (var i = 0; i < solution.length; i++){
-  //   solution[i][i] = 1;
-  // }
-
-  // console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  // return solution;
-
   var board = new Board({n: n})
-  var outcomes = [];
   var round = 0;
+  var check = true;
+  result = [];
 
   var recurse = function(inputBoard){
-    //base case
-    //check if rounds === n?
-    // console.log(inputBoard.rows(), round)
-    console.log(JSON.stringify(inputBoard.rows()), "round: ", round);
-    debugger;
     if (round === n){
-      // console.log(inputBoard.rows());
-      if (!inputBoard.hasAnyRooksConflicts()){
-        outcomes.push(inputBoard);
-      }
-      // console.log("OUTCOMES: ", outcomes);
-      round--;
+      result.push(inputBoard.duplicate());
+      check = false;
       return;
     }
-    //if so, push matrix to outcomes
-    //
     for (var i = 0; i < n; i++){
       inputBoard.togglePiece(round, i);
       round++;
-      debugger;
-      recurse(inputBoard);
-      inputBoard.togglePiece(round, i);
-      // }
+      if (check && !inputBoard.hasAnyRooksConflicts()){
+        recurse(inputBoard);
+      }
+      round--;
+      inputBoard.clearRow(round);
     }
-
   }
-
   recurse(board);
-  debugger;
-  return outcomes[0].rows();
+  return result[0];
 };
 
-    //define the row based on the round
-    //iterate through the row (element)
-      // set element = 1
-      // test matrix against helper functions for conflict
 
-      // if conflict
-        // reset current element value to 0
-        // continue
-
-      // if not a conflict
-        // increment the round
-        // recursively call 'recurse'
-    //iterate through matrix (with each?); collection is matrix; value is row
-    //
 
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  // var count = 1;
-  // for (var i = 1; i < n+1; i++){
-  //   count *= i;
-  // }
-  // return count;
+  var total = 1;
+  var current = n;
+  while (current > 0){
+    total *= current;
+    current -= 1;
+  }
+  return total;
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other

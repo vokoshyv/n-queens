@@ -185,6 +185,19 @@
         }
       }
       return false;
+    },
+
+    clearRow : function(rowIndex){
+      var individualRow = Array.apply(null, new Array(this.get('n'))).map(Number.prototype.valueOf,0);
+      this.set(rowIndex, individualRow);
+    },
+
+    duplicate: function(){
+      var result = [];
+      for (var i = 0; i < this.get('n'); i++){
+        result.push(this.get(i).slice());
+      }
+      return result;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
